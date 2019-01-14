@@ -1,6 +1,6 @@
 # Getting and Cleaning Data Course Project
 
-The purpose of this project is to demonstrate my ability to collect, work with, and clean a data set as part of the course ["Getting and Cleaning Data"](https://www.coursera.org/learn/data-cleaning/home/welcome) by Johns Hopkins University on Coursera. The project involves cleaning a data set of measurements taken using a smartphone during different activities. For details of the variables in the resulting cleaned data sets, please refer to `Codebook.md`.
+The purpose of this project is to demonstrate my ability to collect, work with, and clean a data set as part of the course ["Getting and Cleaning Data"](https://www.coursera.org/learn/data-cleaning/home/welcome) by Johns Hopkins University on Coursera. The project involves cleaning a data set of measurements taken using a smartphone during different activities. For details of the variables in the resulting cleaned data sets, please refer to `CodeBook.md`.
 
 ## The data set
 
@@ -39,7 +39,7 @@ For both training and test data sets, there are 3 files:
 `activity_labels.txt` provides descriptive activity names for the activity numbers in the combined data. `activity_labels` and `comb_data` are merged by the `activity_num` variable to create an updated `comb_data` with a descriptive activity name.
 
 ### Extracting the mean and standard deviation for each measurements
-In order to extract only the the mean and standard deviation for each measurement, `run_analysis.R` subsets the variable names in `comb_data` to those containing `mean()` or `_std()`. This new vector of variable names (`sel_colnames`) is used to subset the dataframe producing the the first tidy dataframe requested by the exercise: `sel_comb_data`. The dataframe is written to file as `sel_comb_data.txt`.
+In order to extract only the the mean and standard deviation for each measurement, `run_analysis.R` subsets the variable names in `comb_data` to those containing `mean()` or `_std()`. This new vector of variable names (`sel_colnames`) is used to subset the dataframe producing the the first tidy dataframe requested in the instructions: `sel_comb_data`. The dataframe is written to file as `sel_comb_data.txt`.
 
 ### Creating a data set with the mean of each variable for each activity and subject
-In order to create the second data set with the mean of each variable for each activity and each subject, `run_analysis.R` takes sel_comb_data, groups by subject and activity name, and then uses `summarise_all()` to get the mean of each column, resulting the tidy dataframe requested by the exercise: `sel_comb_data_means`. The dataframe is written to file as `sel_comb_data_means.txt`.
+In order to create the second data set with the mean of each variable for each activity and each subject, `run_analysis.R` takes sel_comb_data, groups by subject and activity name, and then uses `summarise_all()` to get the mean of each column, resulting the tidy dataframe requested in the instructions: `sel_comb_data_means`. The dataframe is written to file as `sel_comb_data_means.txt`.
