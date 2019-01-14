@@ -1,10 +1,9 @@
 library(tidyverse)
 
-# Features ----
+# 4. Appropriately labels the data set with descriptive variable names ----
 features <- read_delim("UCI HAR dataset/features.txt", # read features
                        col_names = c("row", "feature"),
                        delim = " ")
-# 4. Appropriately labels the data set with descriptive variable names ----
 features <- pull(features, feature) # get character vector of features
 features <- str_replace_all(features, "-", "_") # replace hyphen with underscore
 features <- str_remove(features, "_$") # remove trailing underscores
@@ -53,11 +52,9 @@ sel_colnames <- subset(colnames(comb_data),
 sel_comb_data <- select(comb_data, c(sel_colnames, # subset comb_data to sel_colnames, subject, and activity_name
                                        "subject",
                                        "activity_name"))
-# check for duplicate rows
-all(duplicated(sel_comb_data) == FALSE)
-
+all(duplicated(sel_comb_data) == FALSE) # check for duplicate rows
 summary(sel_comb_data) # first data set
-write.table(sel_comb_data,
+write.table(sel_comb_data, # write to file
             "sel_comb_data.txt",
             row.names = FALSE)
 
@@ -66,6 +63,6 @@ sel_comb_data_means <- sel_comb_data %>%
   group_by(subject, activity_name) %>%
   summarise_all(funs(mean))
 summary(sel_comb_data_means) # second data set
-write.table(sel_comb_data_means,
+write.table(sel_comb_data_means, # write to file
           "sel_comb_data_means.txt",
           row.names = FALSE)
