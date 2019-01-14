@@ -1,6 +1,6 @@
 library(tidyverse)
 
-# 4. Appropriately labels the data set with descriptive variable names ----
+# Appropriately label the data set with descriptive variable names ----
 features <- read_delim("UCI HAR dataset/features.txt", # read features
                        col_names = c("row", "feature"),
                        delim = " ")
@@ -33,19 +33,17 @@ test_data <- cbind(test_labels, test_data) # combine test labels with measuremen
 test_data <- cbind(test_subjs, test_data) # combine subject info with combined test data
 test_data$subject <- as.factor(test_data$subject) # make subject factor
 
-# Combining training and test data ----
-
-# 1. Merges the training and the test sets to create one data set ----
+# Merge the training and the test sets to create one data set ----
 comb_data <- rbind(test_data, train_data) # combines training and test data
 
-# 3. Uses descriptive activity names to name the activities in the data set ----
+# Use descriptive activity names to name the activities in the data set ----
 activity_labels <- read_table("UCI HAR dataset/activity_labels.txt", # read activity names
                               col_names = c("activity_num", "activity_name"))
 comb_data <- merge(comb_data, activity_labels, by = "activity_num") # merge activity names with combined data (by activity number)
 comb_data$activity_name <- tolower(comb_data$activity_name) # make activity_name lower case
 comb_data$activity_name <- as.factor(comb_data$activity_name) # make activity_name factor
 
-# 2. Extracts only the measurements on the mean and standard deviation for each measurement ----
+# Extract only the measurements on the mean and standard deviation for each measurement ----
 sel_colnames <- subset(colnames(comb_data),
                                str_detect(colnames(comb_data),
                                           "mean\\(|std\\(")) # subset column names of combined data to mean and std
@@ -58,7 +56,7 @@ write.table(sel_comb_data, # write to file
             "sel_comb_data.txt",
             row.names = FALSE)
 
-# 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+# From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 sel_comb_data_means <- sel_comb_data %>% 
   group_by(subject, activity_name) %>%
   summarise_all(funs(mean))
